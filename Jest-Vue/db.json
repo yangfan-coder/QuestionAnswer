@@ -1,0 +1,12 @@
+{
+	"userRole":[
+		{"roleId":"1","roleName":"超级管理员"},
+		{"roleId":"2","roleName":"后台管理人员"}
+	],
+	"user":{
+		"data":{
+            "name":"demo",
+            "age":"18"
+        }
+	}
+}

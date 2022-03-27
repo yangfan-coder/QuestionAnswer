@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <div class="circular">
+    <HelloWorld />
+    <div v-show="isHide"  class="circular">
       <div class="circular-content">
         <div class="circulars">
           <div
             :style="{ transform: `rotate(${dynamicRotate}deg)` }"
-            :class="['ring', demo ? 'active' : '']"
+            class="ring"
           >
             <div class="double-circle"></div>
           </div>
@@ -28,8 +29,10 @@
         </div>
       </div>
     </div>
-    <div class="roll-content">
-      <van-button @click="handleRoll" color='#d5ab8d' type="info">点击滚动</van-button>
+    <div v-show="isHide" class="roll-content">
+      <van-button @click="handleRoll" color="#d5ab8d" type="info"
+        >点击滚动</van-button
+      >
       <van-popup v-model="showPicker" position="bottom">
         <van-picker
           title="标题"
@@ -44,16 +47,20 @@
 </template>
 
 <script>
+import HelloWorld from "./components/HelloWorld.vue";
 export default {
   name: "App",
   data() {
     return {
+      isHide: false,
       showPicker: false,
-      demo: false,
-      currentIndex: 5, // 当前用户选中状态
+      currentIndex: 1, // 当前用户选中状态
+      rollIndex: 1, // 当前用户选中状态
     };
   },
-  components: {},
+  components: {
+    HelloWorld,
+  },
   computed: {
     // 动态控制 滚动位置
     dynamicRotate() {
@@ -70,7 +77,7 @@ export default {
           }
           return init;
         }, [])
-        .find((_, index) => index === this.currentIndex);
+        .find((_, index) => index === this.rollIndex);
     },
     // vip的等级
     vipGrade() {
@@ -84,7 +91,10 @@ export default {
   },
   methods: {
     onConfirm(_, index) {
-      this.currentIndex = index;
+      this.rollIndex = index;
+      setTimeout(() => {
+        this.currentIndex = index;
+      }, 1500);
       this.showPicker = false;
     },
     onCancel() {
@@ -103,5 +113,9 @@ export default {
 }
 </style>
 <style scoped lang="scss">
+#app {
+  height: 100vh;
+  background-color: #1a1b1f;
+}
 @import "./index.scss";
 </style>
