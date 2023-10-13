@@ -1,0 +1,24 @@
+{
+  "name": "fans",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "type": "module",
+  "license": "ISC",
+  "keywords": [],
+  "author": "",
+  "bin": {
+    "fans-demo": "./bin/cli.mjs"
+  },
+  "scripts": {
+    "dev": "node bin/cli.mjs"
+  },
+  "dependencies": {
+    "find-up": "5.0.0",
+    "fs-extra": "11.1.0",
+    "js-yaml": "4.1.0",
+    "log-update": "^5.0.1",
+    "node-fetch": "2.6.8",
+    "progress": "^2.0.3",
+    "yargs": "17.6.2"
+  }
+}
