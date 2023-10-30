@@ -1,0 +1,15 @@
+{
+  "name": "NodeWepPush",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node index.js",
+    "ck": "npx web-push generate-vapid-keys"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "web-push": "^3.6.6"
+  }
+}
