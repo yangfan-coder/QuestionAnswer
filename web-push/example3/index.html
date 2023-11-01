@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div>hello 这是测试消息</div></div>
+      <div class="message" style="min-height: 80px"></div>
+      <div>发送消息的token:</div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "xxxxx",
+        authDomain: "xxxxx",
+        projectId: "xxxxx",
+        storageBucket: "xxxxx",
+        messagingSenderId: "xxxxx",
+        appId: "xxxxx",
+        measurementId: "xxxxx"
+      };
+
+      const app = firebase.initializeApp(firebaseConfig);
+      const messaging = firebase.messaging();
+      messaging
+        .getToken({
+          vapidKey: `xxxxx`,
+        })
+        .then((currentToken) => {
+          if (currentToken) {
+            document.querySelector("body").append(currentToken);
+            sendTokenToServer(currentToken);
+          } else {
+            setTokenSentToServer(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          // if error
+          setTokenSentToServer(false);
+        });
+
+      messaging.onMessage((payload) => {
+        console.log("Message received ", payload);
+        const messagesElement = document.querySelector(".message");
+        const dataHeaderElement = document.createElement("h5");
+        const dataElement = document.createElement("pre");
+        dataElement.style = "overflow-x: hidden;";
+        dataHeaderElement.textContent = "Message Received:";
+        dataElement.textContent = JSON.stringify(payload, null, 2);
+        messagesElement.appendChild(dataHeaderElement);
+        messagesElement.appendChild(dataElement);
+
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            const notification = new Notification(payload.notification.title, {
+              body: payload.notification.body,
+            });
+            notification.onclick = (event) => {
+              event.preventDefault(); 
+              window.open(payload.data.link, "_blank");
+            };
+          }
+        });
+      });
+
+      function sendTokenToServer(currentToken) {
+        if (!isTokenSentToServer()) {
+          setTokenSentToServer(true);
+        } else {
+          console.log("Token already available in the server");
+        }
+      }
+      function isTokenSentToServer() {
+        return window.localStorage.getItem("sentToServer") === "1";
+      }
+      function setTokenSentToServer(sent) {
+        window.localStorage.setItem("sentToServer", sent ? "1" : "0");
+      }
+    </script>
+  </body>
+</html>

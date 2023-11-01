@@ -17,9 +17,8 @@ webpush.setVapidDetails("mailto:test@test.com", publicVapidKey, privateVapidKey)
 
 app.post('/subscribe', (req, res) => {
     const subscription = req.body;
-    console.log(subscription)
     res.status(201).json({});
-    const payload = JSON.stringify({ title: "我是测试", body: "This is your first push notification" });
+    const payload = JSON.stringify({ title: "测试消息", body: "hello啊 老铁" });
 
     webpush.sendNotification(subscription, payload).catch(console.log);
 })
