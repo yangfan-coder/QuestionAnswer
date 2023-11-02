@@ -30,7 +30,7 @@
       const messaging = firebase.messaging();
       messaging
         .getToken({
-          vapidKey: `xxxxx`,
+          vapidKey: `xxxxx`,  // firebase => 项目设置 => Web 配置 => web推送证书
         })
         .then((currentToken) => {
           if (currentToken) {
