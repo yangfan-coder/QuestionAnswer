@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intro to Service Workers</title>
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Intro to Service Workers</h1>
+      <h2>Cache API</h2>
+    </header>
+    <!--
+      IMAGES
+      https://picsum.photos/id/1011/5472/3648
+      https://picsum.photos/id/1016/3844/2563
+    -->
+    <pre>
+      <code>
+    //CACHES
+    caches.delete(name).then(isGone=>{});
+    caches.has(name).then(hasFile=>{});
+    caches.keys().then(namesArray=>{});
+    caches.match(Request).then(cacheResponse=>{});
+    caches.open(name).then(cache=>{});
+    
+    //CACHE - from caches.open()
+    cache.add(Request).then(()=>{});
+    cache.addAll(Requests[]).then(()=>{});
+    //add and addAll === fetch() + cache.put()
+    cache.delete(Request, options).then(isGone=>{});
+    cache.keys([Request, options]).then((keysArray)=>{});
+    cache.match(Request, options).then((cacheResponse)=>{});
+    cache.matchAll([Request, options]).then((cacheResponses[])=>{});
+    cache.put(Request, Response).then(()=>{});
+      </code>
+    </pre>
+    <main>
+      <output></output>
+    </main>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
