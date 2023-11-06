@@ -1,0 +1,35 @@
+html {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
+  background-color: #222;
+  color: #eee;
+}
+body {
+  min-height: 100vh;
+  background-color: inherit;
+  color: inherit;
+}
+header,
+main {
+  margin: 1rem 2rem;
+}
+main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-around;
+}
+h1 {
+  color: orangered;
+}
+h2 {
+  color: orange;
+}
+
+main img {
+  /* max-width: 100%;
+  min-width: 200px; */
+  width: clamp(200px, 400px, 600px);
+}
