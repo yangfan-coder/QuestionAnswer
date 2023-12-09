@@ -4,20 +4,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web Component Behaviour &amp; Events</title>
+    <title>Web Component Events</title>
     <link rel="stylesheet" href="./main.css" />
     <script src="./main.js"></script>
     <script src="./bigbang.js" type="module"></script>
   </head>
   <body>
     <header>
-      <h1>Web Component Behaviour &amp; Events</h1>
+      <h1>Web Component Events</h1>
     </header>
     <main>
-      <h2>Main Area</h2>
       <h3>下面是组件展示：</h3>
-      <big-bang color="lightcoral" action="goodbye">
-        <h2 slot="title">It all started with...</h2>
+      <big-bang color="lightcoral" action="removeBigbang">
+        <h2 slot="title">我是标题</h2>
         <span slot="done">Ok</span>
       </big-bang>
     </main>

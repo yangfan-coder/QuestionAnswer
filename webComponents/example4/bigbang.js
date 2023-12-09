@@ -51,11 +51,15 @@ class BigBang extends HTMLElement {
     this.root.append(clone);
 
     let btnSlot = this.root.querySelector("slot[name=done]");
+
+    //  https://developer.mozilla.org/en-US/docs/Web/API/HTMLSlotElement/assignedNodes
     let htmlSlot = btnSlot.assignedNodes()[0]; // 找到分配给Slot的元素
 
     if (htmlSlot) {
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLSlotElement/slotchange_event
+      // 捕获当前插槽的变化
       btnSlot.addEventListener("slotchange", (ev) => {
-        console.log(htmlSlot, "===>slotchange");
+        console.log(htmlSlot, "干一些别的事情");
       });
 
       btnSlot.parentElement.addEventListener("click", (ev) => {
@@ -66,16 +70,15 @@ class BigBang extends HTMLElement {
 
         action(ev);
       });
-    } else {
-      // btnSlot.parentElement.remove();
     }
   }
 
   defaultActionForBigBangButton() {
-    console.log("Missing a VALID action attribute value");
+    console.log("没有找打事件哇");
   }
 
   // 加载
+  // https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements
   connectedCallback() {
     console.log("added to page");
     if (this.color) {
@@ -84,6 +87,7 @@ class BigBang extends HTMLElement {
   }
 
   // 卸载
+  // https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements
   disconnectedCallback() {
     console.log("removed from page");
   }
@@ -100,14 +104,12 @@ class BigBang extends HTMLElement {
     this.setAttribute("color", value);
   }
 
-
   get action() {
     return this.getAttribute("action");
   }
   set action(value) {
     this.setAttribute("action", value);
   }
-
 
   get customAttribute() {
     return this.getAttribute("customAttribute");
@@ -116,10 +118,7 @@ class BigBang extends HTMLElement {
     this.setAttribute("customAttribute", value);
   }
 
-
   attributeChangedCallback(attributeName, oldVal, newVal) {
-
-    console.log(attributeName,'===>attributeName')
     if (attributeName.toLowerCase() === "color") {
       this.style.backgroundColor = newVal;
     }

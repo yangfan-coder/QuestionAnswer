@@ -1,13 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const bb = document.querySelector("big-bang");
-  bb.addEventListener("click", changeCharacter);
+  const bigBang = document.querySelector("big-bang");
+  bigBang.addEventListener("click", function (ev) {
+    const _target = ev.target;
+    _target.character = _target.character === "ccc" ? "aaa" : "ccc";
+    _target.color =
+      _target.color === "cornflowerblue" ? "lightcoral" : "cornflowerblue";
+  });
 });
-
-function changeCharacter(ev) {
-  const bb = ev.target;
-
-  console.log(bb.character, '===>bb.character');
-  console.log(bb.character, '====>bb.color');
-  bb.character = bb.character === "Leonard" ? "Sheldon" : "Leonard";
-  bb.color = bb.color === "cornflowerblue" ? "lightcoral" : "cornflowerblue";
-}

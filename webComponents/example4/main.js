@@ -1,10 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
-});
 
-function hello(ev) {
-  console.log(ev);
-}
-function goodbye() {
-  let bb = document.querySelector('big-bang');
-  bb.remove();
+// 全局事件
+function removeBigbang() {
+  const bigBang = document.querySelector('big-bang');
+  bigBang.remove();
 }

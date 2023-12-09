@@ -24,6 +24,9 @@ div {
   border: 1px solid #000;
 }
 
+/* 
+  https://developer.mozilla.org/en-US/docs/Web/CSS/::part
+*/
 /* 对外控制组件中的样式 */
 ::part(demo) {
   color: red;

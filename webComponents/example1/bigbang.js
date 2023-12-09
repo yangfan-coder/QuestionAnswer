@@ -1,3 +1,4 @@
+// https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/template#%E5%B1%9E%E6%80%A7
 const template = document.createElement("template");
 
 template.innerHTML = `
@@ -13,13 +14,6 @@ class BigBang extends HTMLElement {
     super();
 
     const shadowRoot = this.attachShadow({ mode: "closed" }); // https://developer.mozilla.org/zh-CN/docs/Web/API/Element/attachShadow
-
-    // todo 不能自定义插入数据？？？
-    // let div = document.createElement("div");
-    // div.textContent = "Hello, BigBang!";
-    // shadowRoot.append(div)
-
-    // 试试下方的方式
 
     let clone = template.content.cloneNode(true);
     shadowRoot.append(clone);

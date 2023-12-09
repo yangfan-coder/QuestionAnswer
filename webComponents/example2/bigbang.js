@@ -10,6 +10,8 @@
 //  :host(big-bang) || :host-context(main) 取决于谁写在后面，谁的优先级高
 
 const template = document.createElement("template");
+
+// 类似于： styled-components [https://github.com/styled-components/styled-components]
 template.innerHTML = `
   <style>
     @import url('./bigbang.css'); 
@@ -23,17 +25,17 @@ template.innerHTML = `
     .big-bang-box h1 {
       color: #fff;
     }
-    :host-context(main) {
-      background-color: red;
-    }
+    // :host-context(main) {
+    //   background-color: red;
+    // }
     
-    :host(big-bang) {
-      background-color: #d698dd;
-      display: block;
-    }
+    // :host(big-bang) {
+    //   background-color: #d698dd;
+    //   display: block;
+    // }
     /* shadow 专门的选择器 */
     :host {
-      background-color: aliceblue;
+      background-color: yellow;
       display: block;
     }
 
@@ -44,13 +46,13 @@ template.innerHTML = `
       color: #fff !important;
     }
 
-    /* 不能这样用 */
+    /* warn:  不能这样用 */
     slot {
 
     }
   </style>
   <div class='big-bang-box'>
-    <h1 part="demo">我是Web Components <span>111</span> </h1>
+    <h1 part="demo">我是Web Components <span>内部元素</span> </h1>
     <slot name="title">我是默认的插槽【标题】</slot>
   </div>
 `;

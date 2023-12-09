@@ -22,10 +22,10 @@ template.innerHTML = `
         position: absolute;
         z-index: 10;
         top: -10rem;
-        left: 0;
+        right: 0;
         font-size: 10rem;
         line-height:1;
-        color: hsla(60, 50%, 80%, 0.32);
+        color:#000
       }
     </style>
     <div class="root">
