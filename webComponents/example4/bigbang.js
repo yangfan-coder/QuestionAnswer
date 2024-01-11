@@ -59,6 +59,7 @@ class BigBang extends HTMLElement {
       // https://developer.mozilla.org/en-US/docs/Web/API/HTMLSlotElement/slotchange_event
       // 捕获当前插槽的变化
       btnSlot.addEventListener("slotchange", (ev) => {
+
         console.log(htmlSlot, "干一些别的事情");
       });
 

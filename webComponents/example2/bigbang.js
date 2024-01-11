@@ -25,19 +25,20 @@ template.innerHTML = `
     .big-bang-box h1 {
       color: #fff;
     }
-    // :host-context(main) {
-    //   background-color: red;
-    // }
-    
-    // :host(big-bang) {
-    //   background-color: #d698dd;
-    //   display: block;
-    // }
-    /* shadow 专门的选择器 */
-    :host {
-      background-color: yellow;
+    :host-context(main) {
+      background-color: red;
+    }
+   
+    :host(big-bang) {
+      background-color: #d698dd;
       display: block;
     }
+    /* shadow 专门的选择器 */
+    :host {
+      background-color: red;
+      display: block;
+    }
+    
 
     /* ::slotted 选择器用于slot。 */
     ::slotted(h2)  {
@@ -48,7 +49,7 @@ template.innerHTML = `
 
     /* warn:  不能这样用 */
     slot {
-
+      background-color: #000;
     }
   </style>
   <div class='big-bang-box'>

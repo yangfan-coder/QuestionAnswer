@@ -1,0 +1,24 @@
+{
+  "name": "puppetee_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">16.20.0"
+  },
+  "dependencies": {
+    "puppeteer": "^21.7.0",
+    "puppeteer-cluster": "^0.23.0",
+    "puppeteer-core": "^16.2.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-adblocker": "^2.13.6",
+    "puppeteer-extra-plugin-recaptcha": "^3.6.8",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
+  }
+}
