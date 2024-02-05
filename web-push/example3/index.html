@@ -7,68 +7,108 @@
   </head>
   <body>
     <div class="container">
-      <div>hello 这是测试消息</div></div>
+      <div>hello 这是测试消息</div>
       <div class="message" style="min-height: 80px"></div>
       <div>发送消息的token:</div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging-compat.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging-compat.js"></script> -->
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
 
     <script>
+      var vConsole = new window.VConsole();
       const firebaseConfig = {
-        apiKey: "xxxxx",
-        authDomain: "xxxxx",
-        projectId: "xxxxx",
-        storageBucket: "xxxxx",
-        messagingSenderId: "xxxxx",
-        appId: "xxxxx",
-        measurementId: "xxxxx"
+        apiKey: "AIzaSyBQb5svd_o8-0XuFK1YbPQprW0Ylbtteh0",
+        authDomain: "yf-demo.firebaseapp.com",
+        projectId: "yf-demo",
+        storageBucket: "yf-demo.appspot.com",
+        messagingSenderId: "586953699414",
+        appId: "1:586953699414:web:9ffe524e51c1671c140bf7",
+        measurementId: "G-SGKWKTGSR3",
       };
 
-      const app = firebase.initializeApp(firebaseConfig);
-      const messaging = firebase.messaging();
-      messaging
-        .getToken({
-          vapidKey: `xxxxx`,  // firebase => 项目设置 => Web 配置 => web推送证书
-        })
-        .then((currentToken) => {
-          if (currentToken) {
-            document.querySelector("body").append(currentToken);
-            sendTokenToServer(currentToken);
-          } else {
-            setTokenSentToServer(false);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          // if error
-          setTokenSentToServer(false);
-        });
+      if ("serviceWorker" in navigator) {
+        const app = firebase.initializeApp(firebaseConfig);
+        const paths = `./`;
+        // const paths = `/wbe-push-templates/demo/`;
+        navigator.serviceWorker
+          .register(`${paths}firebase-messaging-sw.js`, {
+            scope: paths,
+          })
+          .then(async function (registration) {
+            // 参考：https://stackoverflow.com/questions/41659970/firebase-change-the-location-of-the-service-worker
+            const serviceWorkerRegistration = await navigator.serviceWorker
+              .ready; // Tips: 改变当前的路径
+            const messaging = firebase.messaging();
 
-      messaging.onMessage((payload) => {
-        console.log("Message received ", payload);
-        const messagesElement = document.querySelector(".message");
-        const dataHeaderElement = document.createElement("h5");
-        const dataElement = document.createElement("pre");
-        dataElement.style = "overflow-x: hidden;";
-        dataHeaderElement.textContent = "Message Received:";
-        dataElement.textContent = JSON.stringify(payload, null, 2);
-        messagesElement.appendChild(dataHeaderElement);
-        messagesElement.appendChild(dataElement);
+            messaging
+              .getToken({
+                serviceWorkerRegistration,
+                vapidKey: `BA6hToMYT5mRftYmU8vr9ikKzbYZzCgtZEAxKw6Om-OBmFPNGTNGDbmeHik7E-irSDlO7O-Cgk9c9FSH81oya3U`, // firebase => 项目设置 => Web 配置 => web推送证书
+              })
+              .then((currentToken) => {
+                if (currentToken) {
+                  document.querySelector("body").append(currentToken);
+                  sendTokenToServer(currentToken);
+                } else {
+                  setTokenSentToServer(false);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                // if error
+                setTokenSentToServer(false);
+              });
 
-        Notification.requestPermission().then((permission) => {
-          if (permission === "granted") {
-            const notification = new Notification(payload.notification.title, {
-              body: payload.notification.body,
+            messaging.onMessage((payload) => {
+              console.log("Message received ", payload);
+              const messagesElement = document.querySelector(".message");
+              const dataHeaderElement = document.createElement("h5");
+              const dataElement = document.createElement("pre");
+              dataElement.style = "overflow-x: hidden;";
+              dataHeaderElement.textContent = "Message Received:";
+              dataElement.textContent = JSON.stringify(payload, null, 2);
+              messagesElement.appendChild(dataHeaderElement);
+              messagesElement.appendChild(dataElement);
+
+              // 直接走sw 执行，默认的消息弹层在IOS 目前不支持
+              navigator.serviceWorker.ready
+                .then(function (serviceWorker) {
+                  return serviceWorker.showNotification(
+                    payload.notification.title,
+                    {
+                      body: payload.notification.body,
+                      icon: payload.notification.image,
+                    }
+                  );
+                })
+                .catch(function (exception) {
+                  alert(exception);
+                });
+
+              // Notification.requestPermission().then((permission) => {
+              //   if (permission === "granted") {
+              //     console.log(payload.notificationm, "===>notificationm");
+              //     const notification = new Notification(
+              //       payload.notification.title,
+              //       {
+              //         body: payload.notification.body,
+              //         icon: payload.notification.image,
+              //       }
+              //     );
+              //     notification.onclick = (event) => {
+              //       event.preventDefault();
+              //       window.open(payload.data.link, "_blank");
+              //     };
+              //   }
+              // });
             });
-            notification.onclick = (event) => {
-              event.preventDefault(); 
-              window.open(payload.data.link, "_blank");
-            };
-          }
-        });
-      });
+          })
+          .catch(function (error) {
+            console.log("Service Worker 注册失败：", error);
+          });
+      }
 
       function sendTokenToServer(currentToken) {
         if (!isTokenSentToServer()) {

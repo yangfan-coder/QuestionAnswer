@@ -1,0 +1,13 @@
+{
+  "name": "Notifications",
+  "icons": [
+    {
+      "src": "/resources/icons/5.png",
+      "sizes": "75x75",
+      "type": "image/png",
+      "density": 1
+    }
+  ],
+  "start_url": "/notification-generator/",
+  "display": "standalone"
+}

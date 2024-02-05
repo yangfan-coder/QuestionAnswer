@@ -18,7 +18,15 @@
             alert(" 请尝试用户打开权限设置 ");
           });
           if (perm === "granted") {
-            const notification = new Notification("我是测试");
+            const options = {
+              body: "I am testing the text",
+              icon:"11.jpeg",
+              data: {
+                url: "https://example.com/review/12345",
+                status: "open",
+              },
+            };
+            const notification = new Notification("我是本地测试消息",options);
 
             notification.addEventListener("error", (e) => {
               alert(" Error: ");
